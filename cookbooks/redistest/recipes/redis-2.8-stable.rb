@@ -1,13 +1,13 @@
 package "git"
 
-git "#{Chef::Config[:file_cache_path]}/redis" do
+git "/tmp/redis" do
    repository "https://github.com/antirez/redis.git"
    reference "2.8"
    action :sync
 end
 
 bash "install_redis" do
-   cwd "#{Chef::Config[:file_cache_path]}/redis"
+   cwd "/tmp/redis"
    code <<-eos
       ./configure
       make
