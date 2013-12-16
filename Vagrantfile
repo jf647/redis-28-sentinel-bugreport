@@ -1,3 +1,4 @@
+proxy = nil
 # Uncomment and modify this line if you need a proxy.  You will also need
 # vagrant-proxyconf plugin installed first
 #proxy = 'http://10.138.15.10:8080'
@@ -16,7 +17,7 @@ distro_to_pkgcmd = {
 Vagrant.configure("2") do |config|
 
     config.ssh.forward_agent = true
-    if proxy
+    if ! proxy.nil?
         config.proxy.https    = proxy
         config.proxy.http     = proxy
         config.proxy.ftp      = proxy
@@ -44,7 +45,7 @@ Vagrant.configure("2") do |config|
                     'chmod +x /tmp/install.sh',
                     'sudo bash -lc /tmp/install.sh',
                 ]
-                if proxy
+                if ! proxy.nil?
                     shellcmds.unshift 'source /etc/profile.d/proxy.sh'
                 end
                 v.vm.provision :shell, inline: shellcmds.join('; ')
