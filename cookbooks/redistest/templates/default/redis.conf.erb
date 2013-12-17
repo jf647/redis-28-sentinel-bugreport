@@ -2,13 +2,13 @@
 
 daemonize no
 pidfile <%= node[:cfg][:directories][:state] %>/redis.pid
-port <%= node[:cfg][:redis][:port] %>
-bind <%= node[:intnet_addr] %> 127.0.0.1
+#port <%= node[:cfg][:redis][:port] %>
+#bind <%= node[:intnet_addr] %> 127.0.0.1
 loglevel <%= node[:cfg][:logging][:redis][:level] %>
 logfile <%= node[:cfg][:logging][:redis][:file] %>
 dir <%= node[:cfg][:directories][:state] %>
 slave-read-only yes
-hz 10
+#hz 10
 <% if '10.200.200.201' == node[:intnet_addr] -%>
 #slaveof
 <% else -%>

@@ -1,7 +1,11 @@
 proxy = nil
 # Uncomment and modify this line if you need a proxy.  You will also need
 # vagrant-proxyconf plugin installed first
-#proxy = 'http://10.138.15.10:8080'
+proxy = 'http://10.138.15.10:8080'
+
+# set this to the git ref to test
+ref = '2.8.0-rc6'
+ref = '2.8'
 
 distro_to_image = {
     'centos' => %w(CentOS-6.4-x86_64 https://github.com/2creatives/vagrant-centos/releases/download/v0.1.0/centos64-x86_64-20131030.box),
@@ -12,7 +16,6 @@ distro_to_pkgcmd = {
     'centos' => 'yum',
     'ubuntu' => 'apt-get',
 }
-
 
 Vagrant.configure("2") do |config|
 
@@ -72,10 +75,13 @@ Vagrant.configure("2") do |config|
                                 :port => 6379,
                                 :sentinel_port => 26379,
                             },
+                            :build => {
+                                :ref => ref,
+                            },
                         },
                     }
                     chef.add_recipe 'redistest::test-intnet'
-                    chef.add_recipe 'redistest::redis-2.8-stable'
+                    chef.add_recipe 'redistest::redis'
                 end
             end
         end

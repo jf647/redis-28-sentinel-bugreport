@@ -2,7 +2,7 @@ package "git"
 
 git "/tmp/redis" do
    repository "https://github.com/antirez/redis.git"
-   reference "2.8"
+   reference node[:build][:ref]
    action :sync
 end
 
