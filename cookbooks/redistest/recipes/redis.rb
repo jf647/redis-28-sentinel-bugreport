@@ -1,5 +1,12 @@
 package "git"
 
+bash "cleanup" do
+    code <<-eos
+        rm -rf /tmp/redis
+        rm -f /var/log/redis*.log
+    eos
+end
+
 git "/tmp/redis" do
    repository "https://github.com/antirez/redis.git"
    reference node[:build][:ref]

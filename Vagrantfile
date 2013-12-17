@@ -1,10 +1,12 @@
 proxy = nil
 # Uncomment and modify this line if you need a proxy.  You will also need
 # vagrant-proxyconf plugin installed first
-proxy = 'http://10.138.15.10:8080'
+#proxy = 'http://10.138.15.10:8080'
 
-# set this to the git ref to test
-ref = '2.8.0-rc6'
+# set this to the git ref to test.  Note that there is some magic in the
+# template that adds 'sentinel can-failover' to the sentinel config if the
+# ref is not 2.8
+#ref = '2.8.0-rc6'
 ref = '2.8'
 
 distro_to_image = {
@@ -75,9 +77,9 @@ Vagrant.configure("2") do |config|
                                 :port => 6379,
                                 :sentinel_port => 26379,
                             },
-                            :build => {
-                                :ref => ref,
-                            },
+                        },
+                        :build => {
+                            :ref => ref,
                         },
                     }
                     chef.add_recipe 'redistest::test-intnet'
